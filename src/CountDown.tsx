@@ -20,6 +20,7 @@ type Props = {
   initialCount: number;
   delay: number;
   isRunning: boolean;
+  onComplete: () => void;
 };
 
 export function CountDown(props: Props) {
@@ -27,9 +28,11 @@ export function CountDown(props: Props) {
   const [isRunning, setRunning] = useState(props.isRunning);
   useInterval(
     () => {
-      setCount(count - props.delay);
-      if (count - props.delay === 0) {
+      if (count === 0) {
         setRunning(false);
+        props.onComplete();
+      } else {
+        setCount(count - props.delay);
       }
     },
     isRunning ? props.delay : null
