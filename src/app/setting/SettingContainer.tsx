@@ -4,8 +4,6 @@ import { actions, Theme } from "./duck";
 
 export function SettingContainer() {
   const [settingState, dispatch] = useSetting() as any;
-  console.log(settingState);
-
   // Use state
   const [workTimer, setWorkTimer] = useState(settingState.workTimer);
   const [shortBreakTimer, setShortBreakTimer] = useState(
@@ -13,9 +11,6 @@ export function SettingContainer() {
   );
   const [longBreakTimer, setLongBreakTimer] = useState(
     settingState.longBreakTimer
-  );
-  const [thresholdOfCheckmarks, setThresholdOfCheckmarks] = useState(
-    settingState.thresholdOfCheckmarks
   );
   const [theme, setTheme] = useState(settingState.theme);
   const [canNotify, setNotify] = useState(settingState.canNotify);
@@ -54,17 +49,6 @@ export function SettingContainer() {
               value={longBreakTimer}
               id="longBreakTimer"
               onChange={e => setLongBreakTimer(Number(e.target.value))}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            threshold of checkmarks:
-            <input
-              type="text"
-              value={thresholdOfCheckmarks}
-              id="thresholdOfCheckmarks"
-              onChange={e => setThresholdOfCheckmarks(Number(e.target.value))}
             />
           </label>
         </div>
@@ -128,7 +112,6 @@ export function SettingContainer() {
               workTimer,
               shortBreakTimer,
               longBreakTimer,
-              thresholdOfCheckmarks,
               theme,
               canNotify
             };

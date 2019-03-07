@@ -11,16 +11,14 @@ export type State = {
   workTimer: number;
   shortBreakTimer: number;
   longBreakTimer: number;
-  thresholdOfCheckmarks: number;
   theme: Theme;
   canNotify: boolean;
 };
 
 export const initialState: State = {
-  workTimer: 25,
-  shortBreakTimer: 5,
-  longBreakTimer: 15,
-  thresholdOfCheckmarks: 4,
+  workTimer: 200,
+  shortBreakTimer: 100,
+  longBreakTimer: 150,
   theme: Theme.Light,
   canNotify: true
 };

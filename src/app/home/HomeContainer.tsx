@@ -4,7 +4,8 @@ import { useSetting } from "../Context";
 
 export function HomeContainer() {
   const [isWorking, setWorking] = useState(true);
-  const [settingState, dispatch] = useSetting() as any;
+  const [isRunning, setRunning] = useState(false);
+  const [settingState] = useSetting() as any;
   return isWorking ? (
     <>
       <p>working</p>
@@ -12,8 +13,11 @@ export function HomeContainer() {
         key="workingCountDown"
         initialCount={settingState.workTimer}
         delay={100}
-        isRunning={true}
-        onComplete={() => setWorking(false)}
+        isRunning={isRunning}
+        onComplete={() => {
+          setRunning(false);
+          setWorking(false);
+        }}
       />
     </>
   ) : (
@@ -23,8 +27,11 @@ export function HomeContainer() {
         key="breakingCountDown"
         initialCount={settingState.shortBreakTimer}
         delay={100}
-        isRunning={true}
-        onComplete={() => setWorking(true)}
+        isRunning={isRunning}
+        onComplete={() => {
+          setRunning(false);
+          setWorking(true);
+        }}
       />
     </>
   );
