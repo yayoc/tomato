@@ -5,13 +5,13 @@ import { useSetting } from "../Context";
 export function HomeContainer() {
   const [isWorking, setWorking] = useState(true);
   const [isRunning, setRunning] = useState(false);
-  const [settingState] = useSetting() as any;
+  const [setting] = useSetting() as any;
   return isWorking ? (
     <>
       <p>working</p>
       <CountDown
         key="workingCountDown"
-        initialCount={settingState.workTimer}
+        initialCount={setting.workTimer}
         delay={100}
         isRunning={isRunning}
         onComplete={() => {
@@ -25,7 +25,7 @@ export function HomeContainer() {
       <p>breaking</p>
       <CountDown
         key="breakingCountDown"
-        initialCount={settingState.shortBreakTimer}
+        initialCount={setting.shortBreakTimer}
         delay={100}
         isRunning={isRunning}
         onComplete={() => {
