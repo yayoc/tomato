@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Work, initialState } from "../modules/entity";
+import { Work } from "../../modules/entity";
 
 function useInterval(callback: () => void, delay: number | null) {
   const saveCallback = useRef<() => void>();

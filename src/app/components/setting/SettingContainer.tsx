@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useStore } from "../Context";
-import { actions, Theme } from "../modules/setting";
+import { useStore } from "../../Context";
+import { actions, Theme } from "../../modules/setting";
 
 export function SettingContainer() {
   const [{ setting }, dispatch] = useStore() as any;

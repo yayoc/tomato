@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "./App.css";
 import { StoreProvider } from "./Context";
-import { HomeContainer } from "./home/HomeContainer";
-import { LogContainer } from "./log/LogContainer";
-import { SettingContainer } from "./setting/SettingContainer";
+import { HomeContainer } from "./components/home/HomeContainer";
+import { LogContainer } from "./components/log/LogContainer";
+import { SettingContainer } from "./components/setting/SettingContainer";
 
 class App extends Component {
   render() {

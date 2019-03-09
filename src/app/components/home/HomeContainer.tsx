@@ -1,8 +1,8 @@
-import React, { useState, Dispatch } from "react";
+import React, { useState } from "react";
 import { CountDown } from "./CountDown";
-import { useStore } from "../Context";
-import { actions as entityActions, Work } from "../modules/entity";
-import { actions as logActions } from "../modules/log";
+import { useStore } from "../../Context";
+import { actions as entityActions, Work } from "../../modules/entity";
+import { actions as logActions } from "../../modules/log";
 
 export function HomeContainer() {
   const [isWorking, setWorking] = useState(true);

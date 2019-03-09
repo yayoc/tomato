@@ -1,6 +1,6 @@
 import React from "react";
-import { useStore } from "../Context";
-import { Work } from "../modules/entity";
+import { useStore } from "../../Context";
+import { Work } from "../../modules/entity";
 
 export function LogContainer() {
   const [{ log, entity }] = useStore() as any;
