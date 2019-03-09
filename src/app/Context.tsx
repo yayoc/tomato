@@ -1,59 +1,46 @@
 import React, { useReducer, useContext } from "react";
-import {
-  reducer as settingReducer,
-  initialState as settingInitialState
-} from "./modules/setting";
-import {
-  reducer as logReducer,
-  initialState as logInitialState
-} from "./modules/log";
-import {
-  reducer as entityReducer,
-  initialState as entityInitialState
-} from "./modules/entity";
+import { reducer as settingReducer } from "./modules/setting";
+import { reducer as logReducer } from "./modules/log";
+import { reducer as entityReducer } from "./modules/entity";
 
 type Props = {
   children: any;
 };
 
-const SettingContext = React.createContext({});
-export const SettingProvider = (props: Props) => {
-  const setting = useReducer(settingReducer, settingInitialState);
+const StoreContext = React.createContext({});
+
+export const StoreProvider = (props: Props) => {
+  const dic = {
+    entity: entityReducer,
+    log: logReducer,
+    setting: settingReducer
+  };
+  const reducers = combineReducers(dic);
+  const value = useReducer(reducers, getInitialState(dic));
   return (
-    <SettingContext.Provider value={setting}>
+    <StoreContext.Provider value={value}>
       {props.children}
-    </SettingContext.Provider>
+    </StoreContext.Provider>
   );
 };
 
-export const useSetting = () => useContext(SettingContext);
+export const useStore = () => useContext(StoreContext);
 
-const LogContext = React.createContext({});
-export const LogProvider = (props: Props) => {
-  const log = useReducer(logReducer, logInitialState);
-  return (
-    <LogContext.Provider value={log}>{props.children}</LogContext.Provider>
-  );
+// Helper functions
+
+const combineReducers = (dic: any): any => {
+  const initial = getInitialState(dic);
+  return function(state = initial, action: any) {
+    return Object.keys(dic).reduce((acc, key) => {
+      const slice = dic[key](state[key], action);
+      return { ...acc, [key]: slice };
+    }, state);
+  };
 };
 
-export const useLog = () => useContext(LogContext);
-
-const EntityContext = React.createContext({});
-export const EntityProvider = (props: Props) => {
-  const entity = useReducer(entityReducer, entityInitialState);
-  return (
-    <EntityContext.Provider value={entity}>
-      {props.children}
-    </EntityContext.Provider>
-  );
+const getInitialState = (dic: any): any => {
+  return Object.keys(dic).reduce((acc, key) => {
+    const slice = dic[key](undefined, { type: undefined });
+    return { ...acc, [key]: slice };
+  }, {});
 };
-
-export const useEntity = () => useContext(EntityContext);
-
-export const ContextProvider = (props: Props) => (
-  <SettingProvider>
-    <EntityProvider>
-      <LogProvider>{props.children}</LogProvider>
-    </EntityProvider>
-  </SettingProvider>
-);

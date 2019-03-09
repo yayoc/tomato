@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { CountDown } from "./CountDown";
-import { useSetting } from "../Context";
+import { useStore } from "../Context";
 
 export function HomeContainer() {
   const [isWorking, setWorking] = useState(true);
   const [isRunning, setRunning] = useState(false);
-  const [setting] = useSetting() as any;
+  const [{ setting }] = useStore() as any;
   return isWorking ? (
     <>
       <p>working</p>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useSetting } from "../Context";
+import { useStore } from "../Context";
 import { actions, Theme } from "../modules/setting";
 
 export function SettingContainer() {
-  const [setting, dispatch] = useSetting() as any;
+  const [{ setting }, dispatch] = useStore() as any;
   // Use state
   const [workTimer, setWorkTimer] = useState(setting.workTimer);
   const [shortBreakTimer, setShortBreakTimer] = useState(
