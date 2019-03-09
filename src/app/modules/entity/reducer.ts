@@ -4,8 +4,8 @@ import { ActionsUnion } from "../../../utils";
 
 export type Work = {
   id: string;
-  startAt: number;
-  endAt: number;
+  startAt: string;
+  endAt: string;
   note: string;
 };
 

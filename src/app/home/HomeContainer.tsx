@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch } from "react";
 import { CountDown } from "./CountDown";
 import { useStore } from "../Context";
+import { actions as entityActions, Work } from "../modules/entity";
+import { actions as logActions } from "../modules/log";
 
 export function HomeContainer() {
   const [isWorking, setWorking] = useState(true);
   const [isRunning, setRunning] = useState(false);
-  const [{ setting }] = useStore() as any;
+  const [{ setting }, dispatch] = useStore() as any;
   return isWorking ? (
     <>
       <p>working</p>
@@ -14,7 +16,9 @@ export function HomeContainer() {
         initialCount={setting.workTimer}
         delay={100}
         isRunning={isRunning}
-        onComplete={() => {
+        onComplete={(work: Work) => {
+          dispatch(entityActions.setWork(work));
+          dispatch(logActions.done(work.id));
           setRunning(false);
           setWorking(false);
         }}
