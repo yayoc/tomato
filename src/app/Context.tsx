@@ -1,7 +1,6 @@
 import React, { useReducer, useContext } from "react";
 import { reducer as settingReducer } from "./modules/setting";
-import { reducer as logReducer } from "./modules/log";
-import { reducer as entityReducer } from "./modules/entity";
+import { reducer as logReducer } from "./modules/logs";
 
 type Props = {
   children: any;
@@ -11,8 +10,7 @@ const StoreContext = React.createContext({});
 
 export const StoreProvider = (props: Props) => {
   const dic = {
-    entity: entityReducer,
-    log: logReducer,
+    logs: logReducer,
     setting: settingReducer
   };
   const reducers = combineReducers(dic);

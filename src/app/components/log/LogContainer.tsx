@@ -1,10 +1,9 @@
 import React from "react";
 import { useStore } from "../../Context";
-import { Work } from "../../modules/entity";
+import { Session } from "../../modules/logs";
 
 export function LogContainer() {
-  const [{ log, entity }] = useStore() as any;
-  const logs = log.workIds.map((id: string) => entity.work[id]);
+  const [{ logs }] = useStore() as any;
   return (
     <>
       <h1>Work Log</h1>
@@ -17,7 +16,7 @@ export function LogContainer() {
           </tr>
         </thead>
         <tbody>
-          {logs.map((log: Work) => (
+          {logs.works.map((log: Session) => (
             <tr key={log.id}>
               <td>{log.startAt}</td>
               <td>{log.endAt}</td>

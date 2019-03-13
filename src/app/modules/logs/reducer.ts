@@ -2,7 +2,7 @@ import { actions } from "./actions";
 import { actionTypes } from "./types";
 import { ActionsUnion } from "../../../utils";
 
-export type Work = {
+export type Session = {
   id: string;
   startAt: string;
   endAt: string;
@@ -10,13 +10,13 @@ export type Work = {
 };
 
 type State = {
-  work: {
-    [id: string]: Work;
-  };
+  works: Session[];
+  breaks: Session[];
 };
 
 export const initialState = {
-  work: {}
+  works: [],
+  breaks: []
 };
 
 export const reducer = (
@@ -24,13 +24,16 @@ export const reducer = (
   action: ActionsUnion<typeof actions>
 ): State => {
   switch (action.type) {
-    case actionTypes.SET_WORK_ENTITY: {
+    case actionTypes.SET_WORK_SESSION: {
       return {
         ...state,
-        work: {
-          ...state.work,
-          [action.payload.id]: action.payload
-        }
+        works: [...state.works, action.payload]
+      };
+    }
+    case actionTypes.SET_BREAK_SESSION: {
+      return {
+        ...state,
+        breaks: [...state.breaks, action.payload]
       };
     }
     default:

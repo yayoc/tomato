@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import localforage from "localforage";
 import { CountDown } from "./CountDown";
 import { useStore } from "../../Context";
-import { actions as entityActions, Work } from "../../modules/entity";
-import { actions as logActions } from "../../modules/log";
+import { actions as logActions, Session } from "../../modules/logs";
 
 export function HomeContainer() {
   const [isWorking, setWorking] = useState(true);
   const [isRunning, setRunning] = useState(false);
-  const [{ setting, entity }, dispatch] = useStore() as any;
+  const [{ setting, logs }, dispatch] = useStore() as any;
   return isWorking ? (
     <>
       <p>working</p>
@@ -17,14 +16,13 @@ export function HomeContainer() {
         initialCount={setting.workTimer}
         delay={100}
         isRunning={isRunning}
-        onComplete={(work: Work) => {
-          dispatch(entityActions.setWork(work));
-          dispatch(logActions.done(work.id));
+        onComplete={(session: Session) => {
+          dispatch(logActions.setWork(session));
           setRunning(false);
           setWorking(false);
           // Store the data into local storage
           // TODO: Use middleware instead of putting here.
-          localforage.setItem("works", { ...entity.work, [work.id]: work });
+          localforage.setItem("works", [...logs.works, session]);
         }}
       />
     </>
@@ -36,9 +34,10 @@ export function HomeContainer() {
         initialCount={setting.shortBreakTimer}
         delay={100}
         isRunning={isRunning}
-        onComplete={() => {
+        onComplete={(session: Session) => {
           setRunning(false);
           setWorking(true);
+          localforage.setItem("breaks", [...logs.breaks, session]);
         }}
       />
     </>
