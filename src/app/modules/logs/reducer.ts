@@ -2,7 +2,8 @@ import { actions } from "./actions";
 import {
   SET_WORK_SESSION,
   SET_BREAK_SESSION,
-  LOAD_SESSIONS_SUCCESS
+  LOAD_SESSIONS_SUCCESS,
+  UPDATE_WORK_SESSION_NOTE
 } from "./types";
 import { ActionsUnion } from "../../../utils";
 
@@ -45,6 +46,18 @@ export const reducer = (
         ...state,
         works: [...state.works, ...action.payload.workSessions],
         breaks: [...state.breaks, ...action.payload.breakSessions]
+      };
+    }
+    case UPDATE_WORK_SESSION_NOTE: {
+      const works = state.works.map(work => {
+        if (work.id === action.payload.id) {
+          return { ...work, note: action.payload.note };
+        }
+        return work;
+      });
+      return {
+        ...state,
+        works
       };
     }
     default:

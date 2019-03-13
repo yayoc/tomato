@@ -5,7 +5,8 @@ import { Session } from "./reducer";
 import {
   LOAD_SESSIONS_REQUEST,
   SET_WORK_SESSION,
-  SET_BREAK_SESSION
+  SET_BREAK_SESSION,
+  UPDATE_WORK_SESSION_NOTE
 } from "./types";
 import { ActionsUnion } from "../../../utils";
 
@@ -50,6 +51,16 @@ export const setBreakSessionMiddleware = (store: Store) => (next: any) => (
   if (action.type === SET_BREAK_SESSION) {
     const { breaks } = store.getState().logs;
     localforage.setItem("breaks", [...breaks, action.payload]);
+  }
+  return next(action);
+};
+
+export const updateWorkSessionNoteMiddleware = (store: Store) => (
+  next: any
+) => (action: ActionsUnion<typeof actions>) => {
+  if (action.type === UPDATE_WORK_SESSION_NOTE) {
+    const { works } = store.getState().logs;
+    localforage.setItem("works", works);
   }
   return next(action);
 };

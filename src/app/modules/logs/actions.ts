@@ -4,7 +4,8 @@ import {
   LOAD_SESSIONS_SUCCESS,
   LOAD_SESSIONS_FAILED,
   SET_WORK_SESSION,
-  SET_BREAK_SESSION
+  SET_BREAK_SESSION,
+  UPDATE_WORK_SESSION_NOTE
 } from "./types";
 import { Session } from "./reducer";
 
@@ -16,5 +17,7 @@ export const actions = {
   setWork: (workSession: Session) =>
     createAction(SET_WORK_SESSION, workSession),
   setBreak: (breakSession: Session) =>
-    createAction(SET_BREAK_SESSION, breakSession)
+    createAction(SET_BREAK_SESSION, breakSession),
+  updateWorkSessionNote: (id: string, note: string) =>
+    createAction(UPDATE_WORK_SESSION_NOTE, { id, note })
 };
