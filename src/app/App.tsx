@@ -1,16 +1,42 @@
 import React, { Component } from "react";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import logger from "redux-logger";
 import "./App.css";
 import { StoreProvider } from "./Context";
 import { HomeContainer } from "./components/home/HomeContainer";
 import { LogContainer } from "./components/log/LogContainer";
 import { SettingContainer } from "./components/setting/SettingContainer";
+import { reducer as settingReducer } from "./modules/setting";
+import {
+  reducer as logsReducer,
+  actions,
+  loadSessionsMiddleware,
+  setWorkSessionMiddleware,
+  setBreakSessionMiddleware
+} from "./modules/logs";
+
+const reducer = combineReducers({
+  logs: logsReducer,
+  setting: settingReducer
+});
+const store = createStore(
+  reducer,
+  applyMiddleware(
+    loadSessionsMiddleware as any,
+    setWorkSessionMiddleware as any,
+    setBreakSessionMiddleware as any,
+    logger
+  )
+);
+
+store.dispatch(actions.loadSessionsRequest());
 
 class App extends Component {
   render() {
     return (
       <Router>
-        <StoreProvider>
+        <StoreProvider store={store}>
           <div className="App">
             <nav>
               <Link to="/">Home</Link>

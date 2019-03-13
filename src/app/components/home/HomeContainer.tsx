@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import localforage from "localforage";
 import { CountDown } from "./CountDown";
 import { useStore } from "../../Context";
 import { actions as logActions, Session } from "../../modules/logs";
@@ -7,7 +6,8 @@ import { actions as logActions, Session } from "../../modules/logs";
 export function HomeContainer() {
   const [isWorking, setWorking] = useState(true);
   const [isRunning, setRunning] = useState(false);
-  const [{ setting, logs }, dispatch] = useStore() as any;
+  const { getState, dispatch } = useStore() as any;
+  const { setting } = getState();
   return isWorking ? (
     <>
       <p>working</p>
@@ -20,9 +20,6 @@ export function HomeContainer() {
           dispatch(logActions.setWork(session));
           setRunning(false);
           setWorking(false);
-          // Store the data into local storage
-          // TODO: Use middleware instead of putting here.
-          localforage.setItem("works", [...logs.works, session]);
         }}
       />
     </>
@@ -35,9 +32,9 @@ export function HomeContainer() {
         delay={100}
         isRunning={isRunning}
         onComplete={(session: Session) => {
+          dispatch(logActions.setBreak(session));
           setRunning(false);
           setWorking(true);
-          localforage.setItem("breaks", [...logs.breaks, session]);
         }}
       />
     </>

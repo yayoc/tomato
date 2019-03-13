@@ -3,7 +3,8 @@ import { useStore } from "../../Context";
 import { Session } from "../../modules/logs";
 
 export function LogContainer() {
-  const [{ logs }] = useStore() as any;
+  const { getState } = useStore() as any;
+  const { logs } = getState();
   return (
     <>
       <h1>Work Log</h1>

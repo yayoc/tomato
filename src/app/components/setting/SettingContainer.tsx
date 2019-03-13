@@ -3,7 +3,8 @@ import { useStore } from "../../Context";
 import { actions, Theme } from "../../modules/setting";
 
 export function SettingContainer() {
-  const [{ setting }, dispatch] = useStore() as any;
+  const { getState, dispatch } = useStore() as any;
+  const { setting } = getState();
   // Use state
   const [workTimer, setWorkTimer] = useState(setting.workTimer);
   const [shortBreakTimer, setShortBreakTimer] = useState(
