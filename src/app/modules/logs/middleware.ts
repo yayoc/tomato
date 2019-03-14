@@ -41,6 +41,7 @@ export const setWorkSessionMiddleware = (store: Store) => (next: any) => (
   if (action.type === SET_WORK_SESSION) {
     const { works } = store.getState().logs;
     localforage.setItem("works", [...works, action.payload]);
+    // notify taking a break
   }
   return next(action);
 };
@@ -51,6 +52,7 @@ export const setBreakSessionMiddleware = (store: Store) => (next: any) => (
   if (action.type === SET_BREAK_SESSION) {
     const { breaks } = store.getState().logs;
     localforage.setItem("breaks", [...breaks, action.payload]);
+    // notify starting a work
   }
   return next(action);
 };

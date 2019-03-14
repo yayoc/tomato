@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useStore } from "../../Context";
-import { actions, Theme } from "../../modules/setting";
+import { actions } from "../../modules/setting";
 
 export function SettingContainer() {
   const { getState, dispatch } = useStore() as any;
@@ -11,12 +11,10 @@ export function SettingContainer() {
     setting.shortBreakTimer
   );
   const [longBreakTimer, setLongBreakTimer] = useState(setting.longBreakTimer);
-  const [theme, setTheme] = useState(setting.theme);
-  const [canNotify, setNotify] = useState(setting.canNotify);
 
   return (
     <>
-      <h2>Setting</h2>
+      <h1>Setting⚙️</h1>
       <div>
         <label>
           work timer:
@@ -50,68 +48,12 @@ export function SettingContainer() {
           />
         </label>
       </div>
-      <div>
-        <label>
-          Theme:
-          <label>
-            light:
-            <input
-              type="radio"
-              value={Theme.Light}
-              checked={theme === Theme.Light}
-              onChange={e => {
-                const theme = (e.target.value as unknown) as Theme;
-                setTheme(theme);
-              }}
-            />
-            dark:
-            <input
-              type="radio"
-              value={Theme.Dark}
-              checked={theme === Theme.Dark}
-              onChange={e => {
-                const theme = (e.target.value as unknown) as Theme;
-                setTheme(theme);
-              }}
-            />
-          </label>
-        </label>
-      </div>
-      <div>
-        <label>
-          Notification:
-          <label>
-            allow:
-            <input
-              type="radio"
-              value={"true"}
-              checked={canNotify}
-              onChange={e => {
-                const canNotify = (e.target.value as unknown) as boolean;
-                setNotify(canNotify);
-              }}
-            />
-            disallow:
-            <input
-              type="radio"
-              value={"false"}
-              checked={!canNotify}
-              onChange={e => {
-                const canNotify = (e.target.value as unknown) as boolean;
-                setNotify(canNotify);
-              }}
-            />
-          </label>
-        </label>
-      </div>
       <button
         onClick={() => {
           const formData = {
             workTimer,
             shortBreakTimer,
-            longBreakTimer,
-            theme,
-            canNotify
+            longBreakTimer
           };
           dispatch(actions.saveSetting(formData));
         }}

@@ -62,9 +62,11 @@ export function CountDown(props: Props) {
 
   return (
     <>
-      {count}
-      <button onClick={() => setRunning(true)}>start</button>
-      <button onClick={() => setRunning(false)}>stop</button>
+      <span>{count}</span>
+      <div>
+        <button onClick={() => setRunning(true)}>start</button>
+        <button onClick={() => setRunning(false)}>stop</button>
+      </div>
     </>
   );
 }

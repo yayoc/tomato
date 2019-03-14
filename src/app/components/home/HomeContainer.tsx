@@ -8,35 +8,40 @@ export function HomeContainer() {
   const [isRunning, setRunning] = useState(false);
   const { getState, dispatch } = useStore() as any;
   const { setting } = getState();
-  return isWorking ? (
+  return (
     <>
-      <p>working</p>
-      <CountDown
-        key="workingCountDown"
-        initialCount={setting.workTimer}
-        delay={100}
-        isRunning={isRunning}
-        onComplete={(session: Session) => {
-          dispatch(logActions.setWork(session));
-          setRunning(false);
-          setWorking(false);
-        }}
-      />
-    </>
-  ) : (
-    <>
-      <p>breaking</p>
-      <CountDown
-        key="breakingCountDown"
-        initialCount={setting.shortBreakTimer}
-        delay={100}
-        isRunning={isRunning}
-        onComplete={(session: Session) => {
-          dispatch(logActions.setBreak(session));
-          setRunning(false);
-          setWorking(true);
-        }}
-      />
+      <h1>Tomato🍅</h1>
+      {isWorking ? (
+        <>
+          <h2>working💪</h2>
+          <CountDown
+            key="workingCountDown"
+            initialCount={setting.workTimer}
+            delay={100}
+            isRunning={isRunning}
+            onComplete={(session: Session) => {
+              dispatch(logActions.setWork(session));
+              setRunning(false);
+              setWorking(false);
+            }}
+          />
+        </>
+      ) : (
+        <>
+          <h2>breaking☕️</h2>
+          <CountDown
+            key="breakingCountDown"
+            initialCount={setting.shortBreakTimer}
+            delay={100}
+            isRunning={isRunning}
+            onComplete={(session: Session) => {
+              dispatch(logActions.setBreak(session));
+              setRunning(false);
+              setWorking(true);
+            }}
+          />
+        </>
+      )}
     </>
   );
 }

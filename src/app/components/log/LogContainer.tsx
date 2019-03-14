@@ -8,7 +8,7 @@ export function LogContainer() {
   const { logs } = getState();
   return (
     <>
-      <h1>Work Log</h1>
+      <h1>Work Log📝</h1>
       <table>
         <thead>
           <tr>
