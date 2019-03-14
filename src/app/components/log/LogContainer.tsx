@@ -26,6 +26,15 @@ export function LogContainer() {
           })}
         </tbody>
       </table>
+      {logs.works.length && (
+        <button
+          onClick={() => {
+            dispatch(actions.deleteAllLogs());
+          }}
+        >
+          Delete all logs
+        </button>
+      )}
     </>
   );
 }

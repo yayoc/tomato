@@ -6,7 +6,8 @@ import {
   LOAD_SESSIONS_REQUEST,
   SET_WORK_SESSION,
   SET_BREAK_SESSION,
-  UPDATE_WORK_SESSION_NOTE
+  UPDATE_WORK_SESSION_NOTE,
+  DELETE_ALL_LOGS
 } from "./types";
 import { ActionsUnion } from "../../../utils";
 
@@ -63,6 +64,16 @@ export const updateWorkSessionNoteMiddleware = (store: Store) => (
   if (action.type === UPDATE_WORK_SESSION_NOTE) {
     const { works } = store.getState().logs;
     localforage.setItem("works", works);
+  }
+  return next(action);
+};
+
+export const deleteAllLogsMiddleware = () => (next: any) => (
+  action: ActionsUnion<typeof actions>
+) => {
+  if (action.type === DELETE_ALL_LOGS) {
+    localforage.setItem("works", []);
+    localforage.setItem("breaks", []);
   }
   return next(action);
 };

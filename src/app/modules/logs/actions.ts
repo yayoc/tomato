@@ -5,7 +5,9 @@ import {
   LOAD_SESSIONS_FAILED,
   SET_WORK_SESSION,
   SET_BREAK_SESSION,
-  UPDATE_WORK_SESSION_NOTE
+  UPDATE_WORK_SESSION_NOTE,
+  DELETE_WORK_SESSION,
+  DELETE_ALL_LOGS
 } from "./types";
 import { Session } from "./reducer";
 
@@ -19,5 +21,7 @@ export const actions = {
   setBreak: (breakSession: Session) =>
     createAction(SET_BREAK_SESSION, breakSession),
   updateWorkSessionNote: (id: string, note: string) =>
-    createAction(UPDATE_WORK_SESSION_NOTE, { id, note })
+    createAction(UPDATE_WORK_SESSION_NOTE, { id, note }),
+  deleteAllLogs: () => createAction(DELETE_ALL_LOGS),
+  deleteWorkSession: (id: string) => createAction(DELETE_WORK_SESSION, id)
 };

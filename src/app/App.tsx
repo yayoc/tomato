@@ -14,7 +14,8 @@ import {
   loadSessionsMiddleware,
   setWorkSessionMiddleware,
   setBreakSessionMiddleware,
-  updateWorkSessionNoteMiddleware
+  updateWorkSessionNoteMiddleware,
+  deleteAllLogsMiddleware
 } from "./modules/logs";
 
 const reducer = combineReducers({
@@ -28,6 +29,7 @@ const store = createStore(
     setWorkSessionMiddleware as any,
     setBreakSessionMiddleware as any,
     updateWorkSessionNoteMiddleware as any,
+    deleteAllLogsMiddleware as any,
     logger
   )
 );

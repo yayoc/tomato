@@ -3,7 +3,9 @@ import {
   SET_WORK_SESSION,
   SET_BREAK_SESSION,
   LOAD_SESSIONS_SUCCESS,
-  UPDATE_WORK_SESSION_NOTE
+  UPDATE_WORK_SESSION_NOTE,
+  DELETE_WORK_SESSION,
+  DELETE_ALL_LOGS
 } from "./types";
 import { ActionsUnion } from "../../../utils";
 
@@ -59,6 +61,16 @@ export const reducer = (
         ...state,
         works
       };
+    }
+    case DELETE_WORK_SESSION: {
+      const works = state.works.filter(work => work.id !== action.payload);
+      return {
+        ...state,
+        works
+      };
+    }
+    case DELETE_ALL_LOGS: {
+      return initialState;
     }
     default:
       return state;
