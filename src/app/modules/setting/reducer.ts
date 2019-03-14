@@ -1,6 +1,6 @@
 import { ActionsUnion } from "../../../utils";
 import { actions } from "./actions";
-import { actionTypes } from "./types";
+import { SAVE_SETTING } from "./types";
 
 export type State = {
   workTimer: number;
@@ -19,7 +19,7 @@ export const reducer = (
   action: ActionsUnion<typeof actions>
 ): State => {
   switch (action.type) {
-    case actionTypes.SAVE_SETTING: {
+    case SAVE_SETTING: {
       return {
         ...state,
         ...action.payload
