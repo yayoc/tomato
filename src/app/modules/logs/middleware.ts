@@ -10,6 +10,7 @@ import {
   DELETE_ALL_LOGS
 } from "./types";
 import { ActionsUnion } from "../../../utils";
+import { createNotification } from "../../utils";
 
 export const loadSessionsMiddleware = (store: Store) => (next: any) => (
   action: ActionsUnion<typeof actions>
@@ -43,6 +44,7 @@ export const setWorkSessionMiddleware = (store: Store) => (next: any) => (
     const { works } = store.getState().logs;
     localforage.setItem("works", [...works, action.payload]);
     // notify taking a break
+    createNotification("Take a break");
   }
   return next(action);
 };
@@ -54,6 +56,7 @@ export const setBreakSessionMiddleware = (store: Store) => (next: any) => (
     const { breaks } = store.getState().logs;
     localforage.setItem("breaks", [...breaks, action.payload]);
     // notify starting a work
+    createNotification("Time to work");
   }
   return next(action);
 };
