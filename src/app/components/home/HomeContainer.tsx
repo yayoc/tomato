@@ -17,7 +17,7 @@ export function HomeContainer() {
           <CountDown
             key="workingCountDown"
             initialCount={setting.workTimer}
-            delay={100}
+            delay={1000}
             isRunning={isRunning}
             onComplete={(session: Session) => {
               dispatch(logActions.setWork(session));
@@ -32,7 +32,7 @@ export function HomeContainer() {
           <CountDown
             key="breakingCountDown"
             initialCount={setting.shortBreakTimer}
-            delay={100}
+            delay={1000}
             isRunning={isRunning}
             onComplete={(session: Session) => {
               dispatch(logActions.setBreak(session));

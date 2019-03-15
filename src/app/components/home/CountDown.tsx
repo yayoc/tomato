@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Session } from "../../modules/logs";
+import { toMIN, formatDate } from "../../utils";
 
 function useInterval(callback: () => void, delay: number | null) {
   const saveCallback = useRef<() => void>();
@@ -34,6 +35,12 @@ const getRandomId = (): string =>
     .toString(36)
     .substring(2, 15);
 
+const msToMinAndSec = (ms: number): string => {
+  const min = Math.floor(toMIN(ms)).toString();
+  const sec = ((ms % 60000) / 1000).toFixed(0);
+  return `${min}:${sec < "10" ? "0" + sec : sec}`;
+};
+
 export function CountDown(props: Props) {
   const [count, setCount] = useState(props.initialCount);
   const [isRunning, setRunning] = useState(props.isRunning);
@@ -47,12 +54,12 @@ export function CountDown(props: Props) {
       if (count <= 0) {
         setRunning(false);
         setStarting(false);
-        props.onComplete({ ...work, endAt: Date() } as Session);
+        props.onComplete({ ...work, endAt: formatDate(Date()) } as Session);
         setWork(initialWork);
       } else {
         if (!isStarted) {
           setStarting(true);
-          setWork({ ...work, startAt: Date() });
+          setWork({ ...work, startAt: formatDate(Date()) });
         }
         setCount(count - props.delay);
       }
@@ -62,7 +69,7 @@ export function CountDown(props: Props) {
 
   return (
     <>
-      <span>{count}</span>
+      <span>{msToMinAndSec(count)}</span>
       <div>
         <button onClick={() => setRunning(true)}>start</button>
         <button onClick={() => setRunning(false)}>stop</button>

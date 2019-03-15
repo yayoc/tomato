@@ -1,6 +1,7 @@
 import { ActionsUnion } from "../../../utils";
 import { actions } from "./actions";
 import { SAVE_SETTING } from "./types";
+import { toMS } from "../../utils";
 
 export type State = {
   workTimer: number;
@@ -9,9 +10,9 @@ export type State = {
 };
 
 export const initialState: State = {
-  workTimer: 200,
-  shortBreakTimer: 100,
-  longBreakTimer: 150
+  workTimer: toMS(25),
+  shortBreakTimer: toMS(5),
+  longBreakTimer: toMS(15)
 };
 
 export const reducer = (

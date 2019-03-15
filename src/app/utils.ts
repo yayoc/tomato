@@ -1,3 +1,5 @@
+import moment from "moment";
+
 /**
  * A function for creating a notification
  *
@@ -41,3 +43,13 @@ const notify = (text: string) => {
 
 export const toMIN = (ms: number): number => ms / (1000 * 60);
 export const toMS = (min: number): number => min * 1000 * 60;
+
+/**
+ * Format a Date object to MMMM Do YYYY, h:mm:ss a
+ * March 15th 2019, 10:45:09 pm
+ *
+ * @param date
+ */
+export const formatDate = (date: string): string => {
+  return moment(date).format("MMMM Do YYYY, h:mm:ss a");
+};
