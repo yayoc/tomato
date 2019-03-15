@@ -38,3 +38,6 @@ const notify = (text: string) => {
   new Notification("tomato", { body: text, image: img });
   window.navigator.vibrate(500);
 };
+
+export const toMIN = (ms: number): number => ms / (1000 * 60);
+export const toMS = (min: number): number => min * 1000 * 60;
