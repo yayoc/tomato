@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Work, initialState } from "../modules/entity";
+import { Session } from "../../modules/logs";
 
 function useInterval(callback: () => void, delay: number | null) {
   const saveCallback = useRef<() => void>();
@@ -21,10 +21,10 @@ type Props = {
   initialCount: number;
   delay: number;
   isRunning: boolean;
-  onComplete: (work: Work) => void;
+  onComplete: (work: Session) => void;
 };
 
-type TempWork = Partial<Work>;
+type TempWork = Partial<Session>;
 
 const getRandomId = (): string =>
   Math.random()
@@ -47,7 +47,7 @@ export function CountDown(props: Props) {
       if (count <= 0) {
         setRunning(false);
         setStarting(false);
-        props.onComplete({ ...work, endAt: Date() } as Work);
+        props.onComplete({ ...work, endAt: Date() } as Session);
         setWork(initialWork);
       } else {
         if (!isStarted) {
@@ -62,9 +62,11 @@ export function CountDown(props: Props) {
 
   return (
     <>
-      {count}
-      <button onClick={() => setRunning(true)}>start</button>
-      <button onClick={() => setRunning(false)}>stop</button>
+      <span>{count}</span>
+      <div>
+        <button onClick={() => setRunning(true)}>start</button>
+        <button onClick={() => setRunning(false)}>stop</button>
+      </div>
     </>
   );
 }
