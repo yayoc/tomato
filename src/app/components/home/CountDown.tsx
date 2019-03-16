@@ -49,6 +49,9 @@ export function CountDown(props: Props) {
     id: getRandomId()
   };
   const [work, setWork] = useState(initialWork);
+  useEffect(() => {
+    setCount(props.initialCount);
+  }, [props.initialCount]);
   useInterval(
     () => {
       if (count <= 0) {

@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch, useMappedState } from "redux-react-hook";
 import { CountDown } from "./CountDown";
-// import { useStore } from "../../Context";
 import { actions as logActions, Session } from "../../modules/logs";
 
 export function HomeContainer() {
