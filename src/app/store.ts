@@ -1,6 +1,10 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import logger from "redux-logger";
-import { reducer as settingReducer } from "./modules/setting";
+import {
+  reducer as settingReducer,
+  loadSettingMiddleware,
+  saveSettingMiddleware
+} from "./modules/setting";
 import {
   reducer as logsReducer,
   loadSessionsMiddleware,
@@ -23,6 +27,8 @@ export const store = createStore(
     setBreakSessionMiddleware as any,
     updateWorkSessionNoteMiddleware as any,
     deleteAllLogsMiddleware as any,
+    loadSettingMiddleware as any,
+    saveSettingMiddleware as any,
     logger
   )
 );
