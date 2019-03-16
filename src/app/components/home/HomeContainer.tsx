@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
+import { useDispatch, useMappedState } from "redux-react-hook";
 import { CountDown } from "./CountDown";
-import { useStore } from "../../Context";
+// import { useStore } from "../../Context";
 import { actions as logActions, Session } from "../../modules/logs";
 
 export function HomeContainer() {
   const [isWorking, setWorking] = useState(true);
   const [isRunning, setRunning] = useState(false);
-  const { getState, dispatch } = useStore() as any;
-  const { setting } = getState();
+  const mapState = useCallback(
+    state => ({
+      setting: state.setting
+    }),
+    []
+  );
+  const { setting } = useMappedState(mapState);
+  const dispatch = useDispatch();
+
   return (
     <>
       <h1>Tomato🍅</h1>

@@ -1,11 +1,18 @@
-import React from "react";
-import { useStore } from "../../Context";
+import React, { useCallback } from "react";
 import { actions } from "../../modules/logs";
 import { LogTableRows } from "./LogTableRows";
+import { useMappedState, useDispatch } from "redux-react-hook";
 
 export function LogContainer() {
-  const { getState, dispatch } = useStore() as any;
-  const { logs } = getState();
+  const mapState = useCallback(
+    state => ({
+      logs: state.logs
+    }),
+    []
+  );
+  const { logs } = useMappedState(mapState);
+  const dispatch = useDispatch();
+
   return (
     <>
       <h1>Work Log📝</h1>

@@ -1,11 +1,18 @@
-import React, { useState } from "react";
-import { useStore } from "../../Context";
+import React, { useState, useCallback } from "react";
+import { useMappedState, useDispatch } from "redux-react-hook";
 import { actions } from "../../modules/setting";
 import { toMIN, toMS } from "../../utils";
 
 export function SettingContainer() {
-  const { getState, dispatch } = useStore() as any;
-  const { setting } = getState();
+  const mapState = useCallback(
+    state => ({
+      setting: state.setting
+    }),
+    []
+  );
+  const { setting } = useMappedState(mapState);
+  const dispatch = useDispatch();
+
   // Use state
   const [workTimer, setWorkTimer] = useState(setting.workTimer);
   const [shortBreakTimer, setShortBreakTimer] = useState(
