@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { useMappedState, useDispatch } from "redux-react-hook";
 import { actions } from "../../modules/setting";
 import { toMIN, toMS } from "../../utils";
+import { Heading } from "grommet";
 
 export function SettingContainer() {
   const mapState = useCallback(
@@ -22,7 +23,7 @@ export function SettingContainer() {
 
   return (
     <>
-      <h1>Setting⚙️</h1>
+      <Heading>Setting⚙️</Heading>
       <div>
         <label htmlFor="workTimer">work timer (min)</label>
         <input

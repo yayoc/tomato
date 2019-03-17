@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import { useDispatch, useMappedState } from "redux-react-hook";
 import { actions as timerActions } from "../../modules/timer";
 import { Timer } from "./Timer";
 import { Session, SessionType } from "../../modules/logs";
+import { Heading } from "grommet";
 
 /**
  * Get random hashed id which is used for identifier of sessions.
@@ -34,7 +35,7 @@ const canTakeLongBreak = (sessions: Session[]): boolean => {
 /**
  * Return true when the latest session is break type or there is no logs.
  * Otherwise, Return false
- * 
+ *
  * @param sessions
  */
 const shouldWork = (sessions: Session[]): boolean => {
@@ -59,12 +60,13 @@ export function HomeContainer() {
   const isLongBreak = canTakeLongBreak(logs.sessions);
   return (
     <>
-      <h1>Tomato🍅</h1>
+      <Heading>Tomato🍅</Heading>
       {shouldWork(logs.sessions) ? (
         <>
           <h2>working💪</h2>
           <Timer
             count={setting.workTimer - timer.count}
+            totalCount={setting.workTimer}
             onStart={() => {
               dispatch(
                 timerActions.start(
@@ -88,6 +90,9 @@ export function HomeContainer() {
               isLongBreak
                 ? setting.longBreakTimer - timer.count
                 : setting.shortBreakTimer - timer.count
+            }
+            totalCount={
+              isLongBreak ? setting.longBreakTimer : setting.shortBreakTimer
             }
             onStart={() => {
               dispatch(

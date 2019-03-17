@@ -1,8 +1,11 @@
 import React from "react";
+import { Button } from "grommet";
+import { LabelledMeter } from "./LabelledMeter";
 import { toMIN } from "../../utils";
 
 type Props = {
   count: number;
+  totalCount: number;
   onStart: () => void;
   onStop: () => void;
 };
@@ -19,12 +22,23 @@ const msToMinAndSec = (ms: number): string => {
   return `${min}:${sec < "10" ? "0" + sec : sec}`;
 };
 
-export function Timer({ count, onStart, onStop }: Props) {
+export function Timer({ count, totalCount, onStart, onStop }: Props) {
   return (
     <>
-      <div>count: {msToMinAndSec(count)}</div>
-      <button onClick={onStart}>start</button>
-      <button onClick={onStop}>stop</button>
+      <LabelledMeter
+        label={msToMinAndSec(count)}
+        value={(count / totalCount) * 100}
+      />
+      <Button
+        a11yTitle="start button for the timer"
+        onClick={onStart}
+        label="start"
+      />
+      <Button
+        a11yTitle="stop button for the timer"
+        onClick={onStop}
+        label="stop"
+      />
     </>
   );
 }

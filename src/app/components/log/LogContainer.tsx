@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { actions, Session } from "../../modules/logs";
 import { LogTableRows } from "./LogTableRows";
 import { useMappedState, useDispatch } from "redux-react-hook";
+import { Heading } from "grommet";
 
 export function LogContainer() {
   const mapState = useCallback(
@@ -15,7 +16,7 @@ export function LogContainer() {
 
   return (
     <>
-      <h1>Work Log📝</h1>
+      <Heading>Work Log📝</Heading>
       <table>
         <thead>
           <tr>
