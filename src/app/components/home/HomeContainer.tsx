@@ -4,6 +4,10 @@ import { actions as timerActions } from "../../modules/timer";
 import { Timer } from "./Timer";
 import { Session, SessionType } from "../../modules/logs";
 
+/**
+ * Get random hashed id which is used for identifier of sessions.
+ *
+ */
 const getRandomId = (): string =>
   Math.random()
     .toString(36)

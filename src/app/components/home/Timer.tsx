@@ -8,6 +8,12 @@ type Props = {
   onComplete: () => void;
 };
 
+/**
+ * Convert milliseconde to mm:ss
+ * @param ms
+ * @todo Write unit test
+ */
+
 const msToMinAndSec = (ms: number): string => {
   const min = Math.floor(toMIN(ms)).toString();
   const sec = ((ms % 60000) / 1000).toFixed(0);
