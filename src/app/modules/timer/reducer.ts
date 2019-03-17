@@ -11,7 +11,7 @@ type State = {
   isRunning: boolean;
   id: string;
   startAt: number | null;
-  expireAt: number | null;
+  expireCount: number;
   count: number;
   type: SessionType;
 };
@@ -20,7 +20,7 @@ const initialState = {
   isRunning: false,
   id: "",
   startAt: null,
-  expireAt: null,
+  expireCount: 0,
   count: 0,
   type: SessionType.Work
 };
@@ -31,8 +31,8 @@ export const reducer = (
 ) => {
   switch (action.type) {
     case START: {
-      const { startAt, expireAt, id } = action.payload;
-      return { ...state, isRunning: true, id, startAt, expireAt };
+      const { startAt, expireCount, id } = action.payload;
+      return { ...state, isRunning: true, id, startAt, expireCount };
     }
     case TICK: {
       return { ...state, count: action.payload };

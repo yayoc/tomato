@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { useDispatch, useMappedState } from "redux-react-hook";
 import { actions as timerActions, SessionType } from "../../modules/timer";
-import { actions as logActions, Session } from "../../modules/logs";
+import { Timer } from "./Timer";
 
 const getRandomId = (): string =>
   Math.random()
@@ -28,32 +28,48 @@ export function HomeContainer() {
       {isWorking ? (
         <>
           <h2>working💪</h2>
-          <div>remaining: {setting.workTimer - timer.count}</div>
-          <button
-            onClick={() => {
+          <Timer
+            count={setting.workTimer - timer.count}
+            onStart={() => {
               dispatch(
                 timerActions.start(
                   getRandomId(),
                   Date.now(),
-                  Date.now() + setting.workTimer,
+                  setting.workTimer,
                   SessionType.Work
                 )
               );
             }}
-          >
-            start
-          </button>
-          <button
-            onClick={() => {
+            onStop={() => {
               dispatch(timerActions.stop(timer.id));
             }}
-          >
-            stop
-          </button>
+            onComplete={() => {
+              setWorking(false);
+            }}
+          />
         </>
       ) : (
         <>
           <h2>breaking☕️</h2>
+          <Timer
+            count={setting.breakTimer - timer.count}
+            onStart={() => {
+              dispatch(
+                timerActions.start(
+                  getRandomId(),
+                  Date.now(),
+                  setting.breakTimer,
+                  SessionType.Break
+                )
+              );
+            }}
+            onStop={() => {
+              dispatch(timerActions.stop(timer.id));
+            }}
+            onComplete={() => {
+              setWorking(true);
+            }}
+          />
         </>
       )}
     </>
