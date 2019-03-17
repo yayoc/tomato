@@ -5,7 +5,6 @@ type Props = {
   count: number;
   onStart: () => void;
   onStop: () => void;
-  onComplete: () => void;
 };
 
 /**
@@ -20,10 +19,7 @@ const msToMinAndSec = (ms: number): string => {
   return `${min}:${sec < "10" ? "0" + sec : sec}`;
 };
 
-export function Timer({ count, onStart, onStop, onComplete }: Props) {
-  if (count === 0) {
-    onComplete();
-  }
+export function Timer({ count, onStart, onStop }: Props) {
   return (
     <>
       <div>count: {msToMinAndSec(count)}</div>

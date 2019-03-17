@@ -31,8 +31,21 @@ const canTakeLongBreak = (sessions: Session[]): boolean => {
   );
 };
 
+/**
+ * Return true when the latest session is break type or there is no logs.
+ * Otherwise, Return false
+ * 
+ * @param sessions
+ */
+const shouldWork = (sessions: Session[]): boolean => {
+  const last = sessions[sessions.length - 1];
+  if (!last) return true;
+  return (
+    last.type === SessionType.ShortBreak || last.type === SessionType.LongBreak
+  );
+};
+
 export function HomeContainer() {
-  const [isWorking, setWorking] = useState(true);
   const mapState = useCallback(
     state => ({
       setting: state.setting,
@@ -47,7 +60,7 @@ export function HomeContainer() {
   return (
     <>
       <h1>Tomato🍅</h1>
-      {isWorking ? (
+      {shouldWork(logs.sessions) ? (
         <>
           <h2>working💪</h2>
           <Timer
@@ -64,9 +77,6 @@ export function HomeContainer() {
             }}
             onStop={() => {
               dispatch(timerActions.stop(timer.id));
-            }}
-            onComplete={() => {
-              setWorking(false);
             }}
           />
         </>
@@ -93,9 +103,6 @@ export function HomeContainer() {
             }}
             onStop={() => {
               dispatch(timerActions.stop(timer.id));
-            }}
-            onComplete={() => {
-              setWorking(true);
             }}
           />
         </>

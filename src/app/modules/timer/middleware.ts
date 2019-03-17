@@ -16,6 +16,7 @@ export const startTimerMiddleware = (store: any) => (next: any) => (
       store.dispatch(timerActions.tick(count + delay));
       if (count + delay >= expireCount) {
         store.dispatch(timerActions.stop(action.payload.id));
+        store.dispatch(timerActions.reset());
         // set an working or breaking session here
         if (action.payload.type === SessionType.Work) {
           store.dispatch(

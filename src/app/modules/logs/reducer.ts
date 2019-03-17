@@ -44,7 +44,7 @@ export const reducer = (
     case UPDATE: {
       const sessions = state.sessions.map(session => {
         if (session.id === action.payload.id) {
-          return { ...session };
+          return { ...action.payload };
         }
         return session;
       });
