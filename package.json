@@ -7,6 +7,8 @@
     "@types/node": "11.10.4",
     "@types/react": "16.8.6",
     "@types/react-dom": "16.8.2",
+    "grommet": "^2.5.5",
+    "grommet-icons": "^4.2.0",
     "localforage": "^1.7.3",
     "moment": "^2.24.0",
     "react": "^16.8.3",
