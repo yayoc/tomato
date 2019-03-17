@@ -1,5 +1,5 @@
-import { reducer, initialState } from "./reducer";
-import { actions } from "./actions";
+import { reducer, initialState } from "../reducer";
+import { actions } from "../actions";
 
 describe("Test logs reducer", () => {
   test("set work session", () => {

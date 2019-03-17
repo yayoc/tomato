@@ -1,10 +1,10 @@
-import { actions } from "./actions";
+import { actions } from "../actions";
 import {
   LOAD_SESSIONS_REQUEST,
   LOAD_SESSIONS_SUCCESS,
   SET_WORK_SESSION,
   SET_BREAK_SESSION
-} from "./types";
+} from "../types";
 
 describe("Test logs actions", () => {
   test("loadSessionsRequest", () => {

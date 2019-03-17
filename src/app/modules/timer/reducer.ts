@@ -16,7 +16,7 @@ type State = {
   type: SessionType;
 };
 
-const initialState = {
+export const initialState = {
   isRunning: false,
   id: "",
   startAt: null,

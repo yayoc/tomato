@@ -1,5 +1,5 @@
-import { actions } from "./actions";
-import { SAVE_SETTING } from "./types";
+import { actions } from "../actions";
+import { SAVE_SETTING } from "../types";
 
 describe("setting actions", () => {
   test("saveSetting", () => {
