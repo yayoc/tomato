@@ -1,42 +1,39 @@
 import { actions } from "../actions";
-import {
-  LOAD_SESSIONS_REQUEST,
-  LOAD_SESSIONS_SUCCESS,
-  SET_WORK_SESSION,
-  SET_BREAK_SESSION
-} from "../types";
+import { LOAD_REQUEST, LOAD_SUCCESS, SET, UPDATE } from "../types";
+import { SessionType } from "../reducer";
 
 describe("Test logs actions", () => {
-  test("loadSessionsRequest", () => {
-    expect(actions.loadSessionsRequest().type).toEqual(LOAD_SESSIONS_REQUEST);
+  test("load", () => {
+    expect(actions.loadRequest().type).toEqual(LOAD_REQUEST);
   });
   test("loadSessionsSuccess", () => {
-    const action = actions.loadSessionsSuccess([], []);
-    expect(action.type).toEqual(LOAD_SESSIONS_SUCCESS);
-    expect(action.payload.workSessions).toEqual([]);
-    expect(action.payload.breakSessions).toEqual([]);
+    const action = actions.loadSuccess([]);
+    expect(action.type).toEqual(LOAD_SUCCESS);
+    expect(action.payload).toEqual([]);
   });
   test("setWork", () => {
     const work = {
       id: "",
       startAt: "",
       endAt: "",
-      note: ""
+      note: "",
+      type: SessionType.Work
     };
-    const action = actions.setWork(work);
-    expect(action.type).toEqual(SET_WORK_SESSION);
+    const action = actions.set(work);
+    expect(action.type).toEqual(SET);
     expect(action.payload).toEqual(work);
   });
 
-  test("setBreak", () => {
-    const breakSession = {
+  test("update", () => {
+    const updatedSession = {
       id: "",
       startAt: "",
       endAt: "",
-      note: ""
+      note: "",
+      type: SessionType.Work
     };
-    const action = actions.setBreak(breakSession);
-    expect(action.type).toEqual(SET_BREAK_SESSION);
-    expect(action.payload).toEqual(breakSession);
+    const action = actions.update(updatedSession);
+    expect(action.type).toEqual(UPDATE);
+    expect(action.payload).toEqual(updatedSession);
   });
 });

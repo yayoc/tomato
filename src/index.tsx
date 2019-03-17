@@ -21,7 +21,7 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-store.dispatch(logsActions.loadSessionsRequest());
+store.dispatch(logsActions.loadRequest());
 store.dispatch(settingActions.loadSetting());
 
 // If you want your app to work offline and load faster, you can change

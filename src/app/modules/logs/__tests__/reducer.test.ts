@@ -1,4 +1,4 @@
-import { reducer, initialState } from "../reducer";
+import { reducer, initialState, SessionType } from "../reducer";
 import { actions } from "../actions";
 
 describe("Test logs reducer", () => {
@@ -7,12 +7,13 @@ describe("Test logs reducer", () => {
       id: "",
       startAt: "",
       endAt: "",
-      note: ""
+      note: "",
+      type: SessionType.Work
     };
-    const action = actions.setWork(work);
+    const action = actions.set(work);
     const state = reducer(initialState, action);
-    expect(state.works.length).toEqual(1);
-    expect(state.works[0].id).toEqual("");
+    expect(state.sessions.length).toEqual(1);
+    expect(state.sessions[0].id).toEqual("");
   });
 
   test("set break session", () => {
@@ -20,12 +21,13 @@ describe("Test logs reducer", () => {
       id: "",
       startAt: "",
       endAt: "",
-      note: ""
+      note: "",
+      type: SessionType.ShortBreak
     };
-    const action = actions.setBreak(breakSession);
+    const action = actions.set(breakSession);
     const state = reducer(initialState, action);
-    expect(state.breaks.length).toEqual(1);
-    expect(state.breaks[0].id).toEqual("");
+    expect(state.sessions.length).toEqual(1);
+    expect(state.sessions[0].id).toEqual("");
   });
 
   test("load sessions", () => {
@@ -33,11 +35,11 @@ describe("Test logs reducer", () => {
       id: "",
       startAt: "",
       endAt: "",
-      note: ""
+      note: "",
+      type: SessionType.Work
     };
-    const action = actions.loadSessionsSuccess([work], []);
+    const action = actions.loadSuccess([work]);
     const state = reducer(initialState, action);
-    expect(state.works.length).toEqual(1);
-    expect(state.breaks.length).toEqual(0);
+    expect(state.sessions.length).toEqual(1);
   });
 });

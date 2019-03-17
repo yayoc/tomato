@@ -1,11 +1,7 @@
 import { ActionsUnion } from "../../../utils";
 import { actions } from "./actions";
 import { START, TICK, STOP, RESET } from "./types";
-
-export enum SessionType {
-  Work = "work",
-  Break = "break"
-}
+import { SessionType } from "../logs";
 
 type State = {
   isRunning: boolean;

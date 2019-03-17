@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { actions } from "../../modules/logs";
+import { actions, Session } from "../../modules/logs";
 import { LogTableRows } from "./LogTableRows";
 import { useMappedState, useDispatch } from "redux-react-hook";
 
@@ -27,16 +27,15 @@ export function LogContainer() {
         </thead>
         <tbody>
           {LogTableRows({
-            works: logs.works,
-            onSave: (id: string, note: string) =>
-              dispatch(actions.updateWorkSessionNote(id, note))
+            works: logs.sessions,
+            onSave: (session: Session) => dispatch(actions.update(session))
           })}
         </tbody>
       </table>
-      {logs.works.length && (
+      {logs.sessions.length && (
         <button
           onClick={() => {
-            dispatch(actions.deleteAllLogs());
+            dispatch(actions.deleteAll());
           }}
         >
           Delete all logs

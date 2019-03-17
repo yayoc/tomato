@@ -2,7 +2,7 @@ import { actions as timerActions } from "./actions";
 import { actions as logsActions } from "../logs/actions";
 import { ActionsUnion } from "../../../utils";
 import { START, STOP } from "./types";
-import { SessionType } from "./reducer";
+import { SessionType } from "../logs/reducer";
 
 let timers: { [key: string]: NodeJS.Timeout } = {};
 
@@ -19,20 +19,22 @@ export const startTimerMiddleware = (store: any) => (next: any) => (
         // set an working or breaking session here
         if (action.payload.type === SessionType.Work) {
           store.dispatch(
-            logsActions.setWork({
+            logsActions.set({
               id: action.payload.id,
               startAt: action.payload.startAt.toString(),
               endAt: Date.now().toString(),
-              note: ""
+              note: "",
+              type: action.payload.type
             })
           );
         } else {
           store.dispatch(
-            logsActions.setBreak({
+            logsActions.set({
               id: action.payload.id,
               startAt: action.payload.startAt.toString(),
               endAt: Date.now().toString(),
-              note: ""
+              note: "",
+              type: action.payload.type
             })
           );
         }

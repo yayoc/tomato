@@ -8,10 +8,9 @@ import {
 import {
   reducer as logsReducer,
   loadSessionsMiddleware,
-  setWorkSessionMiddleware,
-  setBreakSessionMiddleware,
-  updateWorkSessionNoteMiddleware,
-  deleteAllLogsMiddleware
+  setSessionMiddleware,
+  updateSessionMiddleware,
+  deleteAllMiddleware
 } from "./modules/logs";
 import {
   reducer as timerReducer,
@@ -29,10 +28,9 @@ export const store = createStore(
   reducer,
   applyMiddleware(
     loadSessionsMiddleware as any,
-    setWorkSessionMiddleware as any,
-    setBreakSessionMiddleware as any,
-    updateWorkSessionNoteMiddleware as any,
-    deleteAllLogsMiddleware as any,
+    setSessionMiddleware as any,
+    updateSessionMiddleware as any,
+    deleteAllMiddleware as any,
     loadSettingMiddleware as any,
     saveSettingMiddleware as any,
     startTimerMiddleware as any,

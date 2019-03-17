@@ -3,7 +3,7 @@ import { Session } from "../../modules/logs";
 
 type Props = {
   works: Session[];
-  onSave: (id: string, note: string) => void;
+  onSave: (session: Session) => void;
 };
 
 export function LogTableRows({ works, onSave }: Props) {
@@ -33,7 +33,7 @@ export function LogTableRows({ works, onSave }: Props) {
           {isEditing ? (
             <button
               onClick={() => {
-                onSave(log.id, editingNote);
+                onSave({ ...log, note: editingNote });
                 setEditingState({
                   [log.id]: { isEditing: false, note: "" }
                 });

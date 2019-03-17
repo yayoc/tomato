@@ -1,6 +1,6 @@
 import { createAction } from "../../../utils";
 import { START, STOP, RESET, TICK } from "./types";
-import { SessionType } from "./reducer";
+import { SessionType } from "../logs/reducer";
 
 export const actions = {
   start: (id: string, startAt: number, expireCount: number, type: SessionType) =>
