@@ -1,8 +1,5 @@
-export const SET_WORK_SESSION = "[logs] set work session";
-export const UPDATE_WORK_SESSION_NOTE = "[logs] update work session note";
-export const SET_BREAK_SESSION = "[logs] set break session";
-export const LOAD_SESSIONS_REQUEST = "[logs] load sessions request";
-export const LOAD_SESSIONS_SUCCESS = "[logs] load sessions success";
-export const LOAD_SESSIONS_FAILED = "[logs] load sessions failed";
-export const DELETE_ALL_LOGS = "[logs] delete all";
-export const DELETE_WORK_SESSION = "[logs] remove work session";
+export const SET = "[session] set";
+export const LOAD_REQUEST = "[session] load request";
+export const LOAD_SUCCESS = "[session] load success";
+export const UPDATE = "[logs] update";
+export const DELETE_ALL = "[logs] delete all";

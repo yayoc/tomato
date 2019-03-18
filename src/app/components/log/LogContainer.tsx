@@ -1,39 +1,65 @@
-import React from "react";
-import { useStore } from "../../Context";
-import { actions } from "../../modules/logs";
+import React, { useCallback } from "react";
+import { actions, Session } from "../../modules/logs";
 import { LogTableRows } from "./LogTableRows";
+import { useMappedState, useDispatch } from "redux-react-hook";
+import {
+  Heading,
+  Table,
+  Box,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableCell,
+  Text,
+  Button
+} from "grommet";
 
 export function LogContainer() {
-  const { getState, dispatch } = useStore() as any;
-  const { logs } = getState();
+  const mapState = useCallback(
+    state => ({
+      logs: state.logs
+    }),
+    []
+  );
+  const { logs } = useMappedState(mapState);
+  const dispatch = useDispatch();
+
   return (
     <>
-      <h1>Work Log📝</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>start at</th>
-            <th>end at</th>
-            <th>note</th>
-            <th>action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {LogTableRows({
-            works: logs.works,
-            onSave: (id: string, note: string) =>
-              dispatch(actions.updateWorkSessionNote(id, note))
-          })}
-        </tbody>
-      </table>
-      {logs.works.length && (
-        <button
+      <Heading>Work Log📝</Heading>
+      <Box align="center" pad="large">
+        <Table caption="log table">
+          <TableHeader>
+            <TableRow>
+              <TableCell scope="col">
+                <Text>start at</Text>
+              </TableCell>
+              <TableCell scope="col">
+                <Text>end at</Text>
+              </TableCell>
+              <TableCell scope="col">
+                <Text>note</Text>
+              </TableCell>
+              <TableCell scope="col">
+                <Text>action</Text>
+              </TableCell>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {LogTableRows({
+              works: logs.sessions,
+              onSave: (session: Session) => dispatch(actions.update(session))
+            })}
+          </TableBody>
+        </Table>
+      </Box>
+      {logs.sessions.length && (
+        <Button
           onClick={() => {
-            dispatch(actions.deleteAllLogs());
+            dispatch(actions.deleteAll());
           }}
-        >
-          Delete all logs
-        </button>
+          label="Delete all logs"
+        />
       )}
     </>
   );

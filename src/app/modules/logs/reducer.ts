@@ -1,29 +1,27 @@
 import { actions } from "./actions";
-import {
-  SET_WORK_SESSION,
-  SET_BREAK_SESSION,
-  LOAD_SESSIONS_SUCCESS,
-  UPDATE_WORK_SESSION_NOTE,
-  DELETE_WORK_SESSION,
-  DELETE_ALL_LOGS
-} from "./types";
+import { SET, UPDATE, DELETE_ALL, LOAD_SUCCESS } from "./types";
 import { ActionsUnion } from "../../../utils";
+
+export enum SessionType {
+  Work = "work",
+  ShortBreak = "shortBreak",
+  LongBreak = "longBreak"
+}
 
 export type Session = {
   id: string;
   startAt: string;
   endAt: string;
   note: string;
+  type: SessionType;
 };
 
 type State = {
-  works: Session[];
-  breaks: Session[];
+  sessions: Session[];
 };
 
 export const initialState = {
-  works: [],
-  breaks: []
+  sessions: []
 };
 
 export const reducer = (
@@ -31,45 +29,31 @@ export const reducer = (
   action: ActionsUnion<typeof actions>
 ): State => {
   switch (action.type) {
-    case SET_WORK_SESSION: {
+    case SET: {
       return {
         ...state,
-        works: [...state.works, action.payload]
+        sessions: [...state.sessions, action.payload]
       };
     }
-    case SET_BREAK_SESSION: {
+    case LOAD_SUCCESS: {
       return {
         ...state,
-        breaks: [...state.breaks, action.payload]
+        sessions: [...state.sessions, ...action.payload]
       };
     }
-    case LOAD_SESSIONS_SUCCESS: {
-      return {
-        ...state,
-        works: [...state.works, ...action.payload.workSessions],
-        breaks: [...state.breaks, ...action.payload.breakSessions]
-      };
-    }
-    case UPDATE_WORK_SESSION_NOTE: {
-      const works = state.works.map(work => {
-        if (work.id === action.payload.id) {
-          return { ...work, note: action.payload.note };
+    case UPDATE: {
+      const sessions = state.sessions.map(session => {
+        if (session.id === action.payload.id) {
+          return { ...action.payload };
         }
-        return work;
+        return session;
       });
       return {
         ...state,
-        works
+        sessions
       };
     }
-    case DELETE_WORK_SESSION: {
-      const works = state.works.filter(work => work.id !== action.payload);
-      return {
-        ...state,
-        works
-      };
-    }
-    case DELETE_ALL_LOGS: {
+    case DELETE_ALL: {
       return initialState;
     }
     default:

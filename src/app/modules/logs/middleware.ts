@@ -1,82 +1,55 @@
 import { Store } from "redux";
 import localforage from "localforage";
 import { actions } from "./actions";
-import { Session } from "./reducer";
-import {
-  LOAD_SESSIONS_REQUEST,
-  SET_WORK_SESSION,
-  SET_BREAK_SESSION,
-  UPDATE_WORK_SESSION_NOTE,
-  DELETE_ALL_LOGS
-} from "./types";
+import { Session, SessionType } from "./reducer";
+import { LOAD_REQUEST, SET, UPDATE, DELETE_ALL } from "./types";
 import { ActionsUnion } from "../../../utils";
 import { createNotification } from "../../utils";
+
+const KEY_NAME = "sessions";
 
 export const loadSessionsMiddleware = (store: Store) => (next: any) => (
   action: ActionsUnion<typeof actions>
 ) => {
-  if (action.type === LOAD_SESSIONS_REQUEST) {
-    localforage
-      .getItem<Session[]>("works")
-      .then((works: Session[]) =>
-        store.dispatch(actions.loadSessionsSuccess(works, []))
-      )
-      .catch(() => {
-        store.dispatch(actions.loadSessionsFailed());
-      });
-
-    localforage
-      .getItem<Session[]>("breaks")
-      .then((breakSessions: Session[]) =>
-        store.dispatch(actions.loadSessionsSuccess([], breakSessions))
-      )
-      .catch(() => {
-        store.dispatch(actions.loadSessionsFailed());
-      });
+  if (action.type === LOAD_REQUEST) {
+    localforage.getItem<Session[]>(KEY_NAME).then((sessions: Session[]) => {
+      store.dispatch(actions.loadSuccess(sessions || []));
+    });
   }
   return next(action);
 };
 
-export const setWorkSessionMiddleware = (store: Store) => (next: any) => (
+export const setSessionMiddleware = (store: Store) => (next: any) => (
   action: ActionsUnion<typeof actions>
 ) => {
-  if (action.type === SET_WORK_SESSION) {
-    const { works } = store.getState().logs;
-    localforage.setItem("works", [...works, action.payload]);
-    // notify taking a break
-    createNotification("Take a break");
+  if (action.type === SET) {
+    const { sessions } = store.getState().logs;
+    localforage.setItem(KEY_NAME, [...sessions, action.payload]);
+    // Create a notification
+    if (action.payload.type === SessionType.Work) {
+      createNotification("Take a break");
+    } else {
+      createNotification("Time to work");
+    }
   }
   return next(action);
 };
 
-export const setBreakSessionMiddleware = (store: Store) => (next: any) => (
+export const updateSessionMiddleware = (store: Store) => (next: any) => (
   action: ActionsUnion<typeof actions>
 ) => {
-  if (action.type === SET_BREAK_SESSION) {
-    const { breaks } = store.getState().logs;
-    localforage.setItem("breaks", [...breaks, action.payload]);
-    // notify starting a work
-    createNotification("Time to work");
+  if (action.type === UPDATE) {
+    const { sessions } = store.getState().logs;
+    localforage.setItem(KEY_NAME, sessions);
   }
   return next(action);
 };
 
-export const updateWorkSessionNoteMiddleware = (store: Store) => (
-  next: any
-) => (action: ActionsUnion<typeof actions>) => {
-  if (action.type === UPDATE_WORK_SESSION_NOTE) {
-    const { works } = store.getState().logs;
-    localforage.setItem("works", works);
-  }
-  return next(action);
-};
-
-export const deleteAllLogsMiddleware = () => (next: any) => (
+export const deleteAllMiddleware = () => (next: any) => (
   action: ActionsUnion<typeof actions>
 ) => {
-  if (action.type === DELETE_ALL_LOGS) {
-    localforage.setItem("works", []);
-    localforage.setItem("breaks", []);
+  if (action.type === DELETE_ALL) {
+    localforage.setItem(KEY_NAME, []);
   }
   return next(action);
 };
