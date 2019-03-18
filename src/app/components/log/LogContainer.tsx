@@ -2,7 +2,17 @@ import React, { useCallback } from "react";
 import { actions, Session } from "../../modules/logs";
 import { LogTableRows } from "./LogTableRows";
 import { useMappedState, useDispatch } from "redux-react-hook";
-import { Heading } from "grommet";
+import {
+  Heading,
+  Table,
+  Box,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableCell,
+  Text,
+  Button
+} from "grommet";
 
 export function LogContainer() {
   const mapState = useCallback(
@@ -17,30 +27,39 @@ export function LogContainer() {
   return (
     <>
       <Heading>Work Log📝</Heading>
-      <table>
-        <thead>
-          <tr>
-            <th>start at</th>
-            <th>end at</th>
-            <th>note</th>
-            <th>action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {LogTableRows({
-            works: logs.sessions,
-            onSave: (session: Session) => dispatch(actions.update(session))
-          })}
-        </tbody>
-      </table>
+      <Box align="center" pad="large">
+        <Table caption="log table">
+          <TableHeader>
+            <TableRow>
+              <TableCell scope="col">
+                <Text>start at</Text>
+              </TableCell>
+              <TableCell scope="col">
+                <Text>end at</Text>
+              </TableCell>
+              <TableCell scope="col">
+                <Text>note</Text>
+              </TableCell>
+              <TableCell scope="col">
+                <Text>action</Text>
+              </TableCell>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {LogTableRows({
+              works: logs.sessions,
+              onSave: (session: Session) => dispatch(actions.update(session))
+            })}
+          </TableBody>
+        </Table>
+      </Box>
       {logs.sessions.length && (
-        <button
+        <Button
           onClick={() => {
             dispatch(actions.deleteAll());
           }}
-        >
-          Delete all logs
-        </button>
+          label="Delete all logs"
+        />
       )}
     </>
   );

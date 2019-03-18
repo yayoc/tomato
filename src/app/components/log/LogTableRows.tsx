@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Session } from "../../modules/logs";
+import { TableRow, TableCell, TextArea, Button } from "grommet";
 
 type Props = {
   works: Session[];
@@ -14,46 +15,44 @@ export function LogTableRows({ works, onSave }: Props) {
     const isEditing = editingState[log.id] && editingState[log.id].isEditing;
     const editingNote = isEditing ? editingState[log.id].note : "";
     return (
-      <tr key={log.id}>
-        <td>{log.startAt}</td>
-        <td>{log.endAt}</td>
+      <TableRow key={log.id}>
+        <TableCell>{log.startAt}</TableCell>
+        <TableCell>{log.endAt}</TableCell>
         {isEditing ? (
-          <textarea
+          <TextArea
             value={editingNote}
-            onChange={e => {
+            onChange={(e: any) => {
               setEditingState({
                 [log.id]: { isEditing: true, note: e.target.value }
               });
             }}
           />
         ) : (
-          <td>{log.note} </td>
+          <TableCell>{log.note} </TableCell>
         )}
-        <td>
+        <TableCell>
           {isEditing ? (
-            <button
+            <Button
               onClick={() => {
                 onSave({ ...log, note: editingNote });
                 setEditingState({
                   [log.id]: { isEditing: false, note: "" }
                 });
               }}
-            >
-              save
-            </button>
+              label="save"
+            />
           ) : (
-            <button
+            <Button
               onClick={() => {
                 setEditingState({
                   [log.id]: { isEditing: true, note: log.note }
                 });
               }}
-            >
-              edit
-            </button>
+              label="edit"
+            />
           )}
-        </td>
-      </tr>
+        </TableCell>
+      </TableRow>
     );
   });
 }

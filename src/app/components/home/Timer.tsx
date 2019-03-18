@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "grommet";
+import { Button, Box } from "grommet";
 import { LabelledMeter } from "./LabelledMeter";
 import { toMIN } from "../../utils";
 
@@ -25,20 +25,25 @@ const msToMinAndSec = (ms: number): string => {
 export function Timer({ count, totalCount, onStart, onStop }: Props) {
   return (
     <>
-      <LabelledMeter
-        label={msToMinAndSec(count)}
-        value={(count / totalCount) * 100}
-      />
-      <Button
-        a11yTitle="start button for the timer"
-        onClick={onStart}
-        label="start"
-      />
-      <Button
-        a11yTitle="stop button for the timer"
-        onClick={onStop}
-        label="stop"
-      />
+      <Box align="center" pad="large">
+        <LabelledMeter
+          label={msToMinAndSec(count)}
+          value={(count / totalCount) * 100}
+        />
+        <Box direction="row" align="center" gap="small" pad="xsmall">
+          <Button
+            a11yTitle="start button for the timer"
+            onClick={onStart}
+            label="start"
+            primary
+          />
+          <Button
+            a11yTitle="stop button for the timer"
+            onClick={onStop}
+            label="stop"
+          />
+        </Box>
+      </Box>
     </>
   );
 }

@@ -3,7 +3,7 @@ import { useDispatch, useMappedState } from "redux-react-hook";
 import { actions as timerActions } from "../../modules/timer";
 import { Timer } from "./Timer";
 import { Session, SessionType } from "../../modules/logs";
-import { Heading } from "grommet";
+import { Heading, Text } from "grommet";
 
 /**
  * Get random hashed id which is used for identifier of sessions.
@@ -63,7 +63,7 @@ export function HomeContainer() {
       <Heading>Tomato🍅</Heading>
       {shouldWork(logs.sessions) ? (
         <>
-          <h2>working💪</h2>
+          <Text size="medium">working💪</Text>
           <Timer
             count={setting.workTimer - timer.count}
             totalCount={setting.workTimer}
@@ -84,7 +84,7 @@ export function HomeContainer() {
         </>
       ) : (
         <>
-          <h2>breaking☕️</h2>
+          <Text size="medium">breaking☕️</Text>
           <Timer
             count={
               isLongBreak
