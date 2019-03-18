@@ -6,7 +6,7 @@ import { SessionType } from "../logs";
 type State = {
   isRunning: boolean;
   id: string;
-  startAt: number | null;
+  startAt: string;
   expireCount: number;
   count: number;
   type: SessionType;
@@ -15,7 +15,7 @@ type State = {
 export const initialState = {
   isRunning: false,
   id: "",
-  startAt: null,
+  startAt: "",
   expireCount: 0,
   count: 0,
   type: SessionType.Work

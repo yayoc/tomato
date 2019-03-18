@@ -71,7 +71,7 @@ export function HomeContainer() {
               dispatch(
                 timerActions.start(
                   getRandomId(),
-                  Date.now(),
+                  new Date().toString(),
                   setting.workTimer,
                   SessionType.Work
                 )
@@ -98,7 +98,7 @@ export function HomeContainer() {
               dispatch(
                 timerActions.start(
                   getRandomId(),
-                  Date.now(),
+                  new Date().toString(),
                   isLongBreak
                     ? setting.longBreakTimer
                     : setting.shortBreakTimer,

@@ -10,7 +10,6 @@
     "grommet": "^2.5.5",
     "grommet-icons": "^4.2.0",
     "localforage": "^1.7.3",
-    "moment": "^2.24.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-router-dom": "^4.3.1",
